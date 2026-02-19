@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,8 @@ import ShaderBackground from "@/components/ui/shader-bg";
 import { AnimatedBadge } from "@/components/ui/animated-badge";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { Sparkles } from "lucide-react";
+import { HoverButton } from "@/components/ui/hover-glow-button";
+import { ShinyButton } from "@/components/ui/shiny-button";
 
 gsap.registerPlugin(useGSAP);
 
@@ -29,6 +31,7 @@ interface HeroProps {
     badgeLabel?: string;
     ctaButtons?: Array<{ text: string; href?: string; primary?: boolean }>;
     microDetails?: Array<string>;
+    onAnimationComplete?: () => void;
 }
 
 const SyntheticHero = ({
@@ -47,6 +50,7 @@ const SyntheticHero = ({
         "Hand-tuned motion easing",
         "Responsive, tactile feedback",
     ],
+    onAnimationComplete,
 }: HeroProps) => {
     const hasCycling = titlePrefix && cyclingWords && cyclingWords.length > 0;
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -57,17 +61,28 @@ const SyntheticHero = ({
 
     const [headerFinished, setHeaderFinished] = useState(false);
     const [descriptionFinished, setDescriptionFinished] = useState(false);
+    const [highlightsActive, setHighlightsActive] = useState(false);
+    const [ctaVisible, setCtaVisible] = useState(false);
+
+    // Trigger highlights a beat after the description text lands.
+    // Fire CTA + badge after all highlights finish: 300ms + 2200ms delay + 2200ms duration = 4700ms
+    React.useEffect(() => {
+        if (!descriptionFinished) return;
+        const tHighlight = setTimeout(() => setHighlightsActive(true), 300);
+        const tCta = setTimeout(() => {
+            setCtaVisible(true);
+            onAnimationComplete?.();
+        }, 800);
+        return () => {
+            clearTimeout(tHighlight);
+            clearTimeout(tCta);
+        };
+    }, [descriptionFinished]);
 
     useGSAP(
         () => {
 
 
-            if (badgeWrapperRef.current) {
-                gsap.set(badgeWrapperRef.current, { autoAlpha: 0, y: -8 });
-            }
-            if (ctaRef.current) {
-                gsap.set(ctaRef.current, { autoAlpha: 0, y: 8 });
-            }
 
             const microItems = microRef.current
                 ? Array.from(microRef.current.querySelectorAll("li"))
@@ -78,23 +93,9 @@ const SyntheticHero = ({
 
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-            if (badgeWrapperRef.current) {
-                tl.to(
-                    badgeWrapperRef.current,
-                    { autoAlpha: 1, y: 0, duration: 0.5 },
-                    0,
-                );
-            }
 
 
 
-            if (ctaRef.current) {
-                tl.to(
-                    ctaRef.current,
-                    { autoAlpha: 1, y: 0, duration: 0.5 },
-                    "-=0.35",
-                );
-            }
 
             if (microItems.length > 0) {
                 tl.to(
@@ -117,7 +118,14 @@ const SyntheticHero = ({
             <ShaderBackground />
 
             <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 pointer-events-none w-full max-w-5xl">
-                <div ref={badgeWrapperRef} className="pointer-events-auto mb-4 sm:mb-6">
+                <div
+                    ref={badgeWrapperRef}
+                    className="pointer-events-auto mb-4 sm:mb-6"
+                    style={{
+                        opacity: ctaVisible ? 1 : 0,
+                        transition: ctaVisible ? "opacity 1.5s ease-in" : "none",
+                    }}
+                >
                     <AnimatedBadge text="Introducing Blackbolt" color="#34d399" icon={<Sparkles className="h-3 w-3 text-emerald-400" />} />
                 </div>
 
@@ -135,7 +143,10 @@ const SyntheticHero = ({
                             showCursor={false}
                             loop={false}
                             hideCursorWhileTyping={true}
-                            onFinished={() => setHeaderFinished(true)}
+                            onFinished={() => {
+                                setHeaderFinished(true);
+                                setDescriptionFinished(true);
+                            }}
                         />
                         {descriptionFinished && (
                             <TextType
@@ -167,11 +178,14 @@ const SyntheticHero = ({
                         cursorClassName="text-white ml-1"
                         loop={false}
                         hideCursorWhileTyping={true}
-                        onFinished={() => setHeaderFinished(true)}
+                        onFinished={() => {
+                            setHeaderFinished(true);
+                            setDescriptionFinished(true);
+                        }}
                     />
                 )}
 
-                <div className="min-h-[40px] sm:min-h-[60px] mb-6 sm:mb-10">
+                <div className="hidden min-h-[40px] sm:min-h-[60px] mb-6 sm:mb-10">
                     {headerFinished && (
                         !descriptionFinished ? (
                             <BlurText
@@ -185,11 +199,23 @@ const SyntheticHero = ({
                         ) : (
                             <div className="text-white text-base sm:text-lg max-w-2xl mx-auto font-light text-center leading-relaxed px-2 sm:px-0">
                                 Vi utvecklar er{' '}
-                                <Highlighter action="underline" color="var(--secondary)">
+                                <Highlighter
+                                    action="underline"
+                                    color="var(--secondary)"
+                                    animate={highlightsActive}
+                                    animationDuration={1800}
+                                    delay={0}
+                                >
                                     AI-strategi
                                 </Highlighter>
                                 , bygger och utvecklar{' '}
-                                <Highlighter action="highlight" color="var(--primary)">
+                                <Highlighter
+                                    action="highlight"
+                                    color="var(--primary)"
+                                    animate={highlightsActive}
+                                    animationDuration={2200}
+                                    delay={2200}
+                                >
                                     skräddarsydda AI-system
                                 </Highlighter>
                                 {' '}för era behov och utbildar era team.
@@ -201,12 +227,45 @@ const SyntheticHero = ({
                 <div
                     ref={ctaRef}
                     className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 pointer-events-auto w-full sm:w-auto px-4 sm:px-0"
+                    style={{
+                        opacity: ctaVisible ? 1 : 0,
+                        transition: ctaVisible ? "opacity 1.5s ease-in" : "none",
+                        pointerEvents: ctaVisible ? "auto" : "none",
+                    }}
                 >
                     {ctaButtons.map((button, index) => {
                         const isPrimary = button.primary ?? index === 0;
                         const classes = isPrimary
                             ? "w-full sm:w-auto px-6 sm:px-8 py-3 rounded-xl text-sm sm:text-base font-medium backdrop-blur-lg bg-emerald-400/80 hover:bg-emerald-300/80 shadow-lg transition-all cursor-pointer"
                             : "w-full sm:w-auto px-6 sm:px-8 py-3 rounded-xl text-sm sm:text-base font-medium border-white/30 text-white hover:bg-white/10 backdrop-blur-lg transition-all cursor-pointer";
+
+                        if (isPrimary) {
+                            return (
+                                <ShinyButton
+                                    key={index}
+                                    href={button.href}
+                                    className="w-full sm:w-auto"
+                                >
+                                    {button.text}
+                                </ShinyButton>
+                            );
+                        }
+
+                        if (!isPrimary) {
+                            return (
+                                <HoverButton
+                                    key={index}
+                                    glowColor="#34d399"
+                                    backgroundColor="transparent"
+                                    textColor="#ffffff"
+                                    hoverTextColor="#6ee7b7"
+                                    className="w-full sm:w-auto border border-white/30 backdrop-blur-lg"
+                                    onClick={() => button.href && (window.location.href = button.href)}
+                                >
+                                    {button.text}
+                                </HoverButton>
+                            );
+                        }
 
                         if (button.href) {
                             return (

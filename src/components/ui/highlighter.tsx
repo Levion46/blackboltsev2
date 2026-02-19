@@ -10,6 +10,8 @@ interface HighlighterProps {
     strokeWidth?: number;
     animationDuration?: number; // in ms
     delay?: number; // in ms
+    /** Control whether the stroke animates. Pass `true` to trigger. */
+    animate?: boolean;
 }
 
 export const Highlighter: React.FC<HighlighterProps> = ({
@@ -18,25 +20,19 @@ export const Highlighter: React.FC<HighlighterProps> = ({
     action = "highlight",
     color,
     strokeWidth,
-    animationDuration = 500,
+    animationDuration = 1600,
     delay = 0,
+    animate = true,
 }) => {
     const isHighlight = action === "highlight";
-    const defaultColor = isHighlight ? "#FFD54F" : "#FF9800"; // default yellow/orange
+    const defaultColor = isHighlight ? "#FFD54F" : "#FF9800";
     const currentColor = color || defaultColor;
-
-    // Default values based on action
     const currentStrokeWidth = strokeWidth || (isHighlight ? 12 : 2.5);
-    // For 'highlight', we want a thick line behind text. 
-    // For 'underline', a thin line at bottom.
 
-    // SVG configuration
-    // We use preserveAspectRatio="none" to stretch the path to container width
-    // viewBox "0 0 100 100" means coordinates are percentages basically.
-
+    // Slightly wobbly paths for a hand-drawn feel
     const pathD = isHighlight
-        ? "M0 50 Q50 45 100 55" // Slightly wavy highlight
-        : "M0 90 Q50 100 100 88"; // Organic underline curve
+        ? "M2 52 Q25 46 50 50 Q75 54 98 49"   // wavy highlight behind text
+        : "M1 88 Q30 96 60 90 Q80 86 99 92";  // organic underline with small dip
 
     return (
         <span className={cn("relative inline-block whitespace-nowrap", className)}>
@@ -44,7 +40,7 @@ export const Highlighter: React.FC<HighlighterProps> = ({
             <svg
                 className={cn(
                     "absolute left-0 top-0 h-full w-full pointer-events-none",
-                    isHighlight ? "z-0 opacity-80" : "z-10" // Removed mix-blend-screen, increased opacity
+                    isHighlight ? "z-0 opacity-80" : "z-10"
                 )}
                 viewBox="0 0 100 100"
                 preserveAspectRatio="none"
@@ -57,14 +53,25 @@ export const Highlighter: React.FC<HighlighterProps> = ({
                     strokeWidth={currentStrokeWidth}
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{
-                        duration: animationDuration / 1000,
-                        delay: delay / 1000,
-                        ease: "easeInOut",
-                    }}
                     vectorEffect="non-scaling-stroke"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={
+                        animate
+                            ? { pathLength: 1, opacity: 1 }
+                            : { pathLength: 0, opacity: 0 }
+                    }
+                    transition={{
+                        pathLength: {
+                            duration: animationDuration / 1000,
+                            delay: delay / 1000,
+                            // Slow start, slight deceleration — mimics a real marker/pen
+                            ease: [0.25, 0.1, 0.35, 1.0],
+                        },
+                        opacity: {
+                            duration: 0.01,
+                            delay: delay / 1000,
+                        },
+                    }}
                 />
             </svg>
         </span>

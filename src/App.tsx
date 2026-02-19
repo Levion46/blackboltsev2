@@ -1,6 +1,7 @@
 import SyntheticHero from "@/components/ui/synthetic-hero"
 import { Navbar } from "@/components/ui/navbar"
-
+import WhoWeAre from "@/components/ui/who-we-are"
+import LogosSection from "@/components/ui/logos-section"
 
 function App() {
     return (
@@ -24,11 +25,13 @@ function App() {
                     { text: "Learn More", href: "#learn-more" }
                 ]}
                 microDetails={[
-                    "Immersive shader landscapes",
-                    "Hand-tuned motion easing",
-                    "Responsive, tactile feedback",
+                    "Immersive AI automation",
+                    "Hand-tuned intelligent workflows",
+                    "Responsive, adaptive systems",
                 ]}
             />
+            <LogosSection />
+            <WhoWeAre />
         </div>
     )
 }

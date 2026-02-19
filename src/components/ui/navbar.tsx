@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { MenuToggleIcon } from "@/components/ui/menu-toggle-icon";
+import AnimatedGenerateButton from "@/components/ui/animated-generate-button";
 
 interface NavbarProps {
     className?: string;
@@ -84,22 +85,22 @@ export function Navbar({ className }: NavbarProps) {
                         >
                             Sign In
                         </Button>
-                        <Button
-                            size="sm"
-                            className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-full px-5 shadow-md shadow-emerald-500/20"
-                        >
-                            Get Started
-                        </Button>
+                        <AnimatedGenerateButton
+                            labelIdle="Get Started"
+                            labelActive="Loading..."
+                            highlightHueDeg={155}
+                            className="scale-[0.88] origin-right"
+                        />
                     </div>
 
                     {/* Mobile: CTA + Hamburger */}
                     <div className="flex md:hidden items-center gap-2">
-                        <Button
-                            size="sm"
-                            className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-full px-4 shadow-md shadow-emerald-500/20 text-xs"
-                        >
-                            Get Started
-                        </Button>
+                        <AnimatedGenerateButton
+                            labelIdle="Get Started"
+                            labelActive="Loading..."
+                            highlightHueDeg={155}
+                            className="scale-[0.82] origin-right"
+                        />
                         <Button
                             size="icon"
                             variant="ghost"
@@ -162,12 +163,13 @@ export function Navbar({ className }: NavbarProps) {
                         >
                             Sign In
                         </Button>
-                        <Button
-                            className="w-full justify-center bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl shadow-md shadow-emerald-500/20"
+                        <AnimatedGenerateButton
+                            labelIdle="Get Started"
+                            labelActive="Loading..."
+                            highlightHueDeg={155}
+                            className="w-full"
                             onClick={() => setMobileOpen(false)}
-                        >
-                            Get Started
-                        </Button>
+                        />
                     </div>
                 </div>
             </div>
