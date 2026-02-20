@@ -6,17 +6,16 @@ export function ProcessFeatures() {
         <section className="bg-transparent py-16 md:py-32">
             <div className="mx-auto max-w-3xl lg:max-w-5xl px-6">
 
-                {/* Section header */}
                 <div className="mb-14 text-center">
                     <p className="text-xs uppercase tracking-[0.25em] text-emerald-400 font-medium mb-4">
                         Vår process
                     </p>
                     <div className="mb-6 mx-auto h-px w-12 bg-emerald-400/60" />
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight" style={{ fontFamily: "'Heavitas Neue', sans-serif" }}>
                         Hur vi{' '}
                         <span className="text-emerald-400">levererar</span>
                     </h2>
-                    <p className="mt-4 max-w-2xl mx-auto text-white/60 text-base sm:text-lg font-light">
+                    <p className="mt-4 max-w-2xl mx-auto text-white/60 text-base sm:text-lg font-light" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
                         Vi följer en beprovad process för att säkerställa att varje AI-lösning vi bygger
                         levererar verkligt affärsvärde från dag ett.
                     </p>
@@ -24,7 +23,6 @@ export function ProcessFeatures() {
 
                 <div className="relative z-10 grid grid-cols-6 gap-3">
 
-                    {/* Card 1 — Strategy */}
                     <Card className="relative col-span-full flex overflow-hidden lg:col-span-2">
                         <CardContent className="relative m-auto size-fit pt-6 text-center">
                             <div className="relative flex h-24 w-56 items-center justify-center">
@@ -33,40 +31,37 @@ export function ProcessFeatures() {
                                 </svg>
                                 <span className="mx-auto block w-fit text-5xl font-semibold text-emerald-400">01.</span>
                             </div>
-                            <h2 className="mt-6 text-center text-2xl font-semibold text-white">AI-strategi</h2>
-                            <p className="mt-3 text-sm text-white/50 max-w-[180px] mx-auto">
+                            <h2 className="mt-6 text-center text-2xl font-semibold text-white" style={{ fontFamily: "'Heavitas Neue', sans-serif" }}>AI-strategi</h2>
+                            <p className="mt-3 text-sm text-white/50 max-w-[180px] mx-auto" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
                                 Vi kartlägger era mål och identifierar de bästa AI-möjligheterna.
                             </p>
                         </CardContent>
                     </Card>
 
-                    {/* Card 2 — Build */}
                     <Card className="relative col-span-full overflow-hidden sm:col-span-3 lg:col-span-2">
                         <CardContent className="pt-6">
                             <div className="relative mx-auto flex aspect-square size-32 rounded-full border border-white/10 items-center justify-center before:absolute before:-inset-2 before:rounded-full before:border before:border-white/5">
                                 <Cog className="size-12 text-emerald-400" strokeWidth={1} />
                             </div>
                             <div className="relative z-10 mt-6 space-y-2 text-center">
-                                <h2 className="text-lg font-semibold text-white">02. Bygg &amp; Utveckla</h2>
-                                <p className="text-white/50 text-sm">Vi bygger skräddarsydda AI-system anpassade exakt efter era unika behov och processer.</p>
+                                <h2 className="text-lg font-semibold text-white" style={{ fontFamily: "'Heavitas Neue', sans-serif" }}>02. Bygg &amp; Utveckla</h2>
+                                <p className="text-white/50 text-sm" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Vi bygger skräddarsydda AI-system anpassade exakt efter era unika behov och processer.</p>
                             </div>
                         </CardContent>
                     </Card>
 
-                    {/* Card 3 — Train */}
                     <Card className="relative col-span-full overflow-hidden sm:col-span-3 lg:col-span-2">
                         <CardContent className="pt-6">
                             <div className="relative mx-auto flex aspect-square size-32 rounded-full border border-white/10 items-center justify-center before:absolute before:-inset-2 before:rounded-full before:border before:border-white/5">
                                 <Users className="size-12 text-emerald-400" strokeWidth={1} />
                             </div>
                             <div className="relative z-10 mt-6 space-y-2 text-center">
-                                <h2 className="text-lg font-semibold text-white">03. Utbilda</h2>
-                                <p className="text-white/50 text-sm">Vi utbildar era team så att ni kan äga, förstå och vidareutveckla era AI-lösningar självständigt.</p>
+                                <h2 className="text-lg font-semibold text-white" style={{ fontFamily: "'Heavitas Neue', sans-serif" }}>03. Utbilda</h2>
+                                <p className="text-white/50 text-sm" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Vi utbildar era team så att ni kan äga, förstå och vidareutveckla era AI-lösningar självständigt.</p>
                             </div>
                         </CardContent>
                     </Card>
 
-                    {/* Card 4 — Metrics */}
                     <Card className="relative col-span-full overflow-hidden lg:col-span-3">
                         <CardContent className="grid pt-6 sm:grid-cols-2">
                             <div className="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6">
@@ -74,8 +69,8 @@ export function ProcessFeatures() {
                                     <BarChart3 className="m-auto size-5 text-emerald-400" strokeWidth={1} />
                                 </div>
                                 <div className="space-y-2">
-                                    <h2 className="text-lg font-semibold text-white">Mätbara resultat</h2>
-                                    <p className="text-white/50 text-sm">Varje leverans mäts mot tydliga KPI:er. Ni ser alltid exakt vilket värde AI tillför er verksamhet.</p>
+                                    <h2 className="text-lg font-semibold text-white" style={{ fontFamily: "'Heavitas Neue', sans-serif" }}>Mätbara resultat</h2>
+                                    <p className="text-white/50 text-sm" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Varje leverans mäts mot tydliga KPI:er. Ni ser alltid exakt vilket värde AI tillför er verksamhet.</p>
                                 </div>
                             </div>
                             <div className="rounded-tl-lg relative -mb-6 -mr-6 mt-6 h-fit border-l border-t border-white/10 p-6 py-6 sm:ml-6">
@@ -101,7 +96,6 @@ export function ProcessFeatures() {
                         </CardContent>
                     </Card>
 
-                    {/* Card 5 — Security */}
                     <Card className="relative col-span-full overflow-hidden lg:col-span-3">
                         <CardContent className="grid h-full pt-6 sm:grid-cols-2">
                             <div className="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6">
@@ -109,22 +103,22 @@ export function ProcessFeatures() {
                                     <Shield className="m-auto size-5 text-emerald-400" strokeWidth={1} />
                                 </div>
                                 <div className="space-y-2">
-                                    <h2 className="text-lg font-semibold text-white">Säkert &amp; GDPR-compliant</h2>
-                                    <p className="text-white/50 text-sm">Era data och processer hanteras med strikt dataskydd och efterlevnad av GDPR och branschstandarder.</p>
+                                    <h2 className="text-lg font-semibold text-white" style={{ fontFamily: "'Heavitas Neue', sans-serif" }}>Säkert &amp; GDPR-compliant</h2>
+                                    <p className="text-white/50 text-sm" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Era data och processer hanteras med strikt datasäkerhet och efterlevnad av GDPR och branschstandarder.</p>
                                 </div>
                             </div>
                             <div className="relative mt-6 before:absolute before:inset-0 before:mx-auto before:w-px before:bg-white/10 sm:-my-6 sm:-mr-6">
                                 <div className="relative flex h-full flex-col justify-center space-y-6 py-6">
                                     {[
-                                        { label: 'GDPR Compliant', badge: '✓ Verified', even: true },
-                                        { label: 'End-to-end Encrypted', badge: 'AES-256', even: false },
-                                        { label: 'SOC 2 Ready', badge: 'In progress', even: true },
-                                    ].map(({ badge, even }, i) => (
+                                        { label: 'GDPR Compliant', badge: '✓ Verified' },
+                                        { label: 'End-to-end Encrypted', badge: 'AES-256' },
+                                        { label: 'SOC 2 Ready', badge: 'In progress' },
+                                    ].map(({ label, badge }, i) => (
                                         <div
                                             key={i}
-                                            className={`relative flex items-center gap-3 ${even ? 'w-[calc(50%+0.875rem)] justify-end' : 'ml-[calc(50%-1rem)]'}`}
+                                            className={`relative flex items-center gap-3 ${i % 2 === 0 ? 'w-[calc(50%+0.875rem)] justify-end' : 'ml-[calc(50%-1rem)]'}`}
                                         >
-                                            {even ? (
+                                            {i % 2 === 0 ? (
                                                 <>
                                                     <span className="block h-fit rounded border border-white/10 bg-white/5 px-2 py-1 text-xs text-white/70">{badge}</span>
                                                     <div className="size-7 rounded-full bg-emerald-400/20 border border-emerald-400/30 flex items-center justify-center">
