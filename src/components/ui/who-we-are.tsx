@@ -1,6 +1,23 @@
+import { useEffect, useRef, useState } from 'react';
+import BurstText from '@/components/ui/burst-text';
+
 export default function WhoWeAre() {
+    const sectionRef = useRef<HTMLElement>(null);
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+            { threshold: 0.25 }
+        );
+        obs.observe(el);
+        return () => obs.disconnect();
+    }, []);
+
     return (
-        <section className="relative bg-background py-24 sm:py-32 overflow-hidden">
+        <section ref={sectionRef} className="relative bg-background py-24 sm:py-32 overflow-hidden">
             {/* Subtle grid overlay */}
             <div
                 className="pointer-events-none absolute inset-0 opacity-[0.03]"
@@ -27,11 +44,26 @@ export default function WhoWeAre() {
                     {/* Left — main statement */}
                     <div>
                         <h2
-                            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.1]"
+                            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]"
                             style={{ fontFamily: "'Heavitas Neue', sans-serif" }}
                         >
-                            Vi är{" "}
-                            <span className="text-emerald-400">Blackbolt.</span>
+                            {visible && (
+                                <>
+                                    <BurstText
+                                        text="Vi \u00e4r "
+                                        color="#ffffff"
+                                        delay={0}
+                                    />
+                                    <BurstText
+                                        text="Blackbolt."
+                                        color="#34d399"
+                                        delay={380}
+                                    />
+                                </>
+                            )}
+                            {!visible && (
+                                <span style={{ opacity: 0 }}>Vi \u00e4r Blackbolt.</span>
+                            )}
                         </h2>
                     </div>
 
@@ -39,14 +71,14 @@ export default function WhoWeAre() {
                     <div className="hidden relative">
                         <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-[0_0_40px_rgba(52,211,153,0.06)]">
                             <p className="text-base sm:text-lg text-white/75 leading-relaxed font-light">
-                                Vi hjälper grundare som dig att automatisera sina dagliga
-                                affärsprocesser med hjälp av AI.
+                                Vi hj\u00e4lper grundare som dig att automatisera sina dagliga
+                                aff\u00e4rsprocesser med hj\u00e4lp av AI.
                             </p>
 
                             <div className="mt-8 flex items-center gap-3">
                                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                                 <span className="text-xs text-emerald-100/50 uppercase tracking-widest">
-                                    AI · Automation · Growth
+                                    AI \u00b7 Automation \u00b7 Growth
                                 </span>
                             </div>
                         </div>
