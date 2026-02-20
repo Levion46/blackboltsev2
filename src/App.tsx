@@ -5,6 +5,7 @@ import LogosSection from "@/components/ui/logos-section"
 import CardSection from "@/components/ui/card-section"
 import ProcessFeatures from "@/components/ui/features-8"
 import FooterSection from "@/components/ui/footer"
+import ServicesSection from "@/components/ui/services-section"
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
             />
             <LogosSection />
             <WhoWeAre />
+            <ServicesSection />
             <ProcessFeatures />
             <CardSection />
             <FooterSection />
