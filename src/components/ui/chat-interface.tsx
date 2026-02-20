@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link2 } from 'lucide-react';
 
@@ -154,20 +154,20 @@ const MessageWrapper = React.memo(({ message, config, uiConfig, previousMessageC
 MessageWrapper.displayName = 'MessageWrapper';
 
 const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) => {
-    const messagesEndRef = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
     const [completedMessages, setCompletedMessages] = useState<number[]>([]);
     const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
     const [key, setKey] = useState(0);
+
     const defaults: Required<UiConfig> = {
-        containerWidth: 400, containerHeight: 340, backgroundColor: 'transparent',
-        autoRestart: true, restartDelay: 4000,
+        containerWidth: 400, containerHeight: 340,
+        backgroundColor: 'transparent', autoRestart: true, restartDelay: 4000,
         loader: { dotColor: '#6ee7b7' },
         linkBubbles: { backgroundColor: '#064e3b', textColor: '#6ee7b7', iconColor: '#6ee7b7', borderColor: '#065f46' },
         leftChat: { backgroundColor: 'rgba(255,255,255,0.07)', textColor: '#e2e8f0', borderColor: 'rgba(255,255,255,0.1)', showBorder: true, nameColor: '#6ee7b7' },
         rightChat: { backgroundColor: 'rgba(52,211,153,0.15)', textColor: '#e2e8f0', borderColor: 'rgba(52,211,153,0.2)', showBorder: true, nameColor: '#a7f3d0' },
     };
     const ui: Required<UiConfig> = { ...defaults, ...uiConfig } as Required<UiConfig>;
+
     const handleMessageComplete = useCallback((id: number) => {
         setCompletedMessages(prev => {
             const next = [...prev, id];
@@ -177,25 +177,19 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) 
             return next;
         });
     }, [config.messages.length, ui.autoRestart, ui.restartDelay]);
+
     const handleVisibilityChange = useCallback((id: number) => {
         setVisibleMessages(prev => prev.includes(id) ? prev : [...prev, id]);
     }, []);
-    const scrollToBottom = useCallback(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }, []);
-    useEffect(() => {
-        const obs = new MutationObserver(scrollToBottom);
-        if (containerRef.current) obs.observe(containerRef.current, { childList: true, subtree: true });
-        return () => obs.disconnect();
-    }, [key, scrollToBottom]);
-    useEffect(() => { scrollToBottom(); }, [completedMessages, scrollToBottom]);
+
     const topFade = `linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%)`;
+
     return (
         <div key={key} className="relative w-full rounded-lg overflow-hidden"
             style={{ height: `${ui.containerHeight}px` }}>
-            <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none z-10" style={{ background: topFade }} />
-            {/* overflow-hidden (NOT overflow-y-auto) so browser never treats this as a scroll container */}
-            <div ref={containerRef} className="p-4 h-full overflow-hidden" style={{ scrollbarWidth: 'none' }}>
+            <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none z-10 rounded-t-lg" style={{ background: topFade }} />
+            {/* overflow-hidden — no scroll container, page scroll never hijacked */}
+            <div className="p-4 h-full overflow-hidden">
                 <div className="min-h-full flex flex-col justify-end gap-0">
                     {config.messages.map((msg, i) => {
                         const prevDone = i === 0 || completedMessages.includes(config.messages[i - 1].id);
@@ -212,7 +206,6 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ config, uiConfig = {} }) 
                             </div>
                         );
                     })}
-                    <div ref={messagesEndRef} className="h-4" />
                 </div>
             </div>
         </div>
