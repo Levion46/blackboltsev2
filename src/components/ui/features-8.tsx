@@ -19,6 +19,16 @@ export function ProcessFeatures() {
                         Vi följer en beprovad process för att säkerställa att varje AI-lösning vi bygger
                         levererar verkligt affärsvärde från dag ett.
                     </p>
+                    <div className="mt-10 max-w-2xl mx-auto text-left border-l-2 border-emerald-400/40 pl-6">
+                        <h3 className="text-lg font-semibold text-white mb-2" style={{ fontFamily: "'Heavitas Neue', sans-serif" }}>
+                            Automatisera repetitiva uppgifter
+                        </h3>
+                        <p className="text-white/50 text-sm leading-relaxed" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+                            Frigör tid för värdeskapande aktiviteter istället för repetitivt administrativt arbete.
+                            Vi digitaliserar och automatiserar era processer från datahantering och arbetsflöden
+                            till rapportering och påminnelser.
+                        </p>
+                    </div>
                 </div>
 
                 <div className="relative z-10 grid grid-cols-6 gap-3">
