@@ -1,24 +1,14 @@
 import { cn } from "@/lib/utils";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import ChatComponent from "@/components/ui/chat-interface";
-import {
-    Bot,
-    Workflow,
-    BarChart3,
-    Users,
-} from "lucide-react";
+import SocialAnimatedCard from "@/components/ui/social-animated-card";
+import { Bot, Workflow, BarChart3 } from "lucide-react";
 
 const PHASE_STEP = 360 / 5;
 
 const chatConfig = {
-    leftPerson: {
-        name: "Anna",
-        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face",
-    },
-    rightPerson: {
-        name: "AI Bot",
-        avatar: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=64&h=64&fit=crop",
-    },
+    leftPerson: { name: "Anna", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
+    rightPerson: { name: "AI Bot", avatar: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=64&h=64&fit=crop" },
     messages: [
         { id: 1, sender: "left" as const, type: "text" as const, content: "Hi! I need to check my order status.", maxWidth: "max-w-[175px]", loader: { enabled: true, delay: 500, duration: 1400 } },
         { id: 2, sender: "right" as const, type: "text" as const, content: "Sure! Share your order number and I'll look it up instantly.", maxWidth: "max-w-[195px]", loader: { enabled: true, delay: 400, duration: 1600 } },
@@ -36,24 +26,24 @@ const chatUiConfig = {
 };
 
 const services = [
-    { area: "md:[grid-area:1/1/3/7] xl:[grid-area:1/1/3/6]", icon: null, title: "", description: "", phase: 0, chat: true },
-    { area: "md:[grid-area:3/1/4/7] xl:[grid-area:1/6/2/10]", icon: <Users className="h-4 w-4" />, title: "Team-utbildning & onboarding", description: "Praktisk utbildning för era team så att ni kan äga, driva och vidareutveckla era AI-system utan att vara beroende av externa konsulter.", phase: PHASE_STEP * 1, chat: false },
-    { area: "md:[grid-area:1/7/2/13] xl:[grid-area:2/6/3/10]", icon: <Workflow className="h-4 w-4" />, title: "Processautomation", description: "Vi automatiserar repetitiva arbetsflöden — från datahantering till rapportering och påminnelser.", phase: PHASE_STEP * 2, chat: false },
-    { area: "md:[grid-area:2/7/3/13] xl:[grid-area:1/10/2/13]", icon: <Bot className="h-4 w-4" />, title: "Skräddarsydda AI-system", description: "Chattbotar, prediktiva modeller och intelligenta agenter integrerade i era befintliga verktyg.", phase: PHASE_STEP * 3, chat: false },
-    { area: "md:[grid-area:3/7/4/13] xl:[grid-area:2/10/3/13]", icon: <BarChart3 className="h-4 w-4" />, title: "Mätning & optimering", description: "Tydliga KPI:er från dag ett — vi mäter ROI och förbättrar kontinuerligt era AI-system.", phase: PHASE_STEP * 4, chat: false },
+    { area: "md:[grid-area:1/1/3/7] xl:[grid-area:1/1/3/6]", icon: null, title: "", description: "", phase: 0, chat: true, socialCard: false },
+    { area: "md:[grid-area:3/1/4/7] xl:[grid-area:1/6/2/10]", icon: null, title: "", description: "", phase: PHASE_STEP * 1, chat: false, socialCard: true },
+    { area: "md:[grid-area:1/7/2/13] xl:[grid-area:2/6/3/10]", icon: <Workflow className="h-4 w-4" />, title: "Processautomation", description: "Vi automatiserar repetitiva arbetsflöden — från datahantering till rapportering och påminnelser.", phase: PHASE_STEP * 2, chat: false, socialCard: false },
+    { area: "md:[grid-area:2/7/3/13] xl:[grid-area:1/10/2/13]", icon: <Bot className="h-4 w-4" />, title: "Skräddarsydda AI-system", description: "Chattbotar, prediktiva modeller och intelligenta agenter integrerade i era befintliga verktyg.", phase: PHASE_STEP * 3, chat: false, socialCard: false },
+    { area: "md:[grid-area:3/7/4/13] xl:[grid-area:2/10/3/13]", icon: <BarChart3 className="h-4 w-4" />, title: "Mätning & optimering", description: "Tydliga KPI:er från dag ett — vi mäter ROI och förbättrar kontinuerligt era AI-system.", phase: PHASE_STEP * 4, chat: false, socialCard: false },
 ];
 
-interface GridItemProps { area: string; icon: React.ReactNode; title: string; description: string; phase: number; chat?: boolean; }
+interface GridItemProps { area: string; icon: React.ReactNode; title: string; description: string; phase: number; chat?: boolean; socialCard?: boolean; }
 
-const GridItem = ({ area, icon, title, description, phase, chat }: GridItemProps) => (
+const GridItem = ({ area, icon, title, description, phase, chat, socialCard }: GridItemProps) => (
     <li className={cn("min-h-[14rem] list-none", area)}>
         <div className="relative h-full rounded-[1.25rem] border-[0.75px] border-white/10 p-2 md:rounded-[1.5rem] md:p-3">
             <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} autoAnimate={true} phaseOffset={phase} animSpeed={0.36} />
             <div className="relative flex h-full flex-col overflow-hidden rounded-xl border-[0.75px] border-white/10 bg-white/5 backdrop-blur-sm">
-                {!chat && (
-                    <div className="flex flex-col gap-3 p-6">
-                        <div className="w-fit rounded-lg border-[0.75px] border-emerald-400/30 bg-emerald-400/10 p-2 text-emerald-400">{icon}</div>
-                        <div className="space-y-1.5">
+                {!chat && !socialCard && (
+                    <div className="flex flex-col gap-3 p-6 h-full justify-between">
+                        <div className="space-y-3">
+                            <div className="w-fit rounded-lg border-[0.75px] border-emerald-400/30 bg-emerald-400/10 p-2 text-emerald-400">{icon}</div>
                             <h3 className="text-xl leading-snug font-semibold tracking-[-0.03em] md:text-2xl text-white" style={{ fontFamily: "'Heavitas Neue', sans-serif" }}>{title}</h3>
                             <p className="text-sm leading-relaxed text-white/50" style={{ fontFamily: "'Inter Tight', sans-serif" }}>{description}</p>
                         </div>
@@ -67,6 +57,17 @@ const GridItem = ({ area, icon, title, description, phase, chat }: GridItemProps
                         <div className="px-6 py-5 border-t border-white/10">
                             <h4 className="text-base font-semibold text-white mb-1" style={{ fontFamily: "'Heavitas Neue', sans-serif" }}>Business Chatbot</h4>
                             <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Enhance customer interactions by automating responses with intelligent chatbots, providing seamless service.</p>
+                        </div>
+                    </>
+                )}
+                {socialCard && (
+                    <>
+                        <div className="flex-1 min-h-0 overflow-hidden pointer-events-none select-none">
+                            <SocialAnimatedCard />
+                        </div>
+                        <div className="px-6 py-5 border-t border-white/10">
+                            <h4 className="text-base font-semibold text-white mb-1" style={{ fontFamily: "'Heavitas Neue', sans-serif" }}>Content Creation</h4>
+                            <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: "'Inter Tight', sans-serif" }}>Effortlessly generate high-quality, engaging content tailored to your audience using AI-powered tools.</p>
                         </div>
                     </>
                 )}
@@ -90,9 +91,7 @@ export default function ServicesSection() {
                     </p>
                 </div>
                 <ul className="grid grid-cols-1 gap-4 md:grid-cols-12 md:grid-rows-3 xl:grid-rows-2 xl:min-h-[46rem]">
-                    {services.map((service) => (
-                        <GridItem key={service.area} {...service} />
-                    ))}
+                    {services.map((service) => (<GridItem key={service.area} {...service} />))}
                 </ul>
             </div>
         </section>
