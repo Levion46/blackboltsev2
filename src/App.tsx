@@ -6,7 +6,7 @@ import CardSection from "@/components/ui/card-section"
 
 function App() {
     return (
-        <div className="relative w-full min-h-screen bg-background">
+        <div className="w-full min-h-screen bg-background overflow-x-hidden">
             <Navbar />
             <SyntheticHero
                 titlePrefix="AI-konsulter som bygger, inte bara "
