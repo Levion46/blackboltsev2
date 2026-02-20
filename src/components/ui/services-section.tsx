@@ -68,7 +68,7 @@ const GridItem = ({ area, icon, title, description, phase }: GridItemProps) => (
                 borderWidth={3}
                 autoAnimate={true}
                 phaseOffset={phase}
-                animSpeed={0.18}
+                animSpeed={0.36}
             />
             <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border-[0.75px] border-white/10 bg-white/5 p-6 shadow-sm backdrop-blur-sm md:p-6">
                 <div className="relative flex flex-1 flex-col justify-between gap-3">
