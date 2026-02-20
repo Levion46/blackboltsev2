@@ -50,7 +50,7 @@ export default function WhoWeAre() {
                             {visible && (
                                 <>
                                     <BurstText
-                                        text="Vi \u00e4r "
+                                        text="Vi är "
                                         color="#ffffff"
                                         delay={0}
                                     />
@@ -62,7 +62,7 @@ export default function WhoWeAre() {
                                 </>
                             )}
                             {!visible && (
-                                <span style={{ opacity: 0 }}>Vi \u00e4r Blackbolt.</span>
+                                <span style={{ opacity: 0 }}>Vi är Blackbolt.</span>
                             )}
                         </h2>
                     </div>
@@ -71,14 +71,14 @@ export default function WhoWeAre() {
                     <div className="hidden relative">
                         <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-[0_0_40px_rgba(52,211,153,0.06)]">
                             <p className="text-base sm:text-lg text-white/75 leading-relaxed font-light">
-                                Vi hj\u00e4lper grundare som dig att automatisera sina dagliga
-                                aff\u00e4rsprocesser med hj\u00e4lp av AI.
+                                Vi hjälper grundare som dig att automatisera sina dagliga
+                                affärsprocesser med hjälp av AI.
                             </p>
 
                             <div className="mt-8 flex items-center gap-3">
                                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                                 <span className="text-xs text-emerald-100/50 uppercase tracking-widest">
-                                    AI \u00b7 Automation \u00b7 Growth
+                                    AI · Automation · Growth
                                 </span>
                             </div>
                         </div>
