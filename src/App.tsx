@@ -3,6 +3,7 @@ import { Navbar } from "@/components/ui/navbar"
 import WhoWeAre from "@/components/ui/who-we-are"
 import LogosSection from "@/components/ui/logos-section"
 import CardSection from "@/components/ui/card-section"
+import ProcessFeatures from "@/components/ui/features-8"
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
             <LogosSection />
             <WhoWeAre />
             <CardSection />
+            <ProcessFeatures />
         </div>
     )
 }
