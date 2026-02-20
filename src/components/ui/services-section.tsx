@@ -8,41 +8,43 @@ import {
     Users,
 } from "lucide-react";
 
+const PHASE_STEP = 360 / 5;
+
 const services = [
     {
         area: "md:[grid-area:1/1/2/7] xl:[grid-area:1/1/2/5]",
         icon: <BrainCircuit className="h-4 w-4" />,
         title: "AI-strategi & rådgivning",
-        description:
-            "Vi kartlägger er verksamhet, identifierar automatiseringsmöjligheter och levererar en konkret AI-färdplan anpassad för era B2B-processer.",
+        description: "Vi kartlägger er verksamhet, identifierar automatiseringsmöjligheter och levererar en konkret AI-färdplan anpassad för era B2B-processer.",
+        phase: 0,
     },
     {
         area: "md:[grid-area:1/7/2/13] xl:[grid-area:2/1/3/5]",
         icon: <Users className="h-4 w-4" />,
         title: "Team-utbildning & onboarding",
-        description:
-            "Praktisk utbildning för era team så att ni kan äga, driva och vidareutveckla era AI-system utan att vara beroende av externa konsulter.",
+        description: "Praktisk utbildning för era team så att ni kan äga, driva och vidareutveckla era AI-system utan att vara beroende av externa konsulter.",
+        phase: PHASE_STEP * 1,
     },
     {
         area: "md:[grid-area:2/1/3/7] xl:[grid-area:1/5/3/8]",
         icon: <Workflow className="h-4 w-4" />,
         title: "Processautomation",
-        description:
-            "Vi automatiserar repetitiva arbetsflöden — från datahantering och CRM-uppdateringar till fakturahantering, rapportering och påminnelser. Frigör tid för det som skapar värde.",
+        description: "Vi automatiserar repetitiva arbetsflöden — från datahantering och CRM-uppdateringar till fakturahantering, rapportering och påminnelser. Frigör tid för det som skapar värde.",
+        phase: PHASE_STEP * 2,
     },
     {
         area: "md:[grid-area:2/7/3/13] xl:[grid-area:1/8/2/13]",
         icon: <Bot className="h-4 w-4" />,
         title: "Skräddarsydda AI-system",
-        description:
-            "Vi bygger och driftsätter anpassade AI-lösningar — chattbotar, prediktiva modeller och intelligenta agenter — integrerade direkt i era befintliga verktyg.",
+        description: "Vi bygger och driftsätter anpassade AI-lösningar — chattbotar, prediktiva modeller och intelligenta agenter — integrerade direkt i era befintliga verktyg.",
+        phase: PHASE_STEP * 3,
     },
     {
         area: "md:[grid-area:3/1/4/13] xl:[grid-area:2/8/3/13]",
         icon: <BarChart3 className="h-4 w-4" />,
         title: "Mätning & kontinuerlig optimering",
-        description:
-            "Tydliga KPI:er från dag ett. Vi mäter ROI, itererar och förbättrar kontinuerligt era AI-system för att säkerställa långsiktigt affärsvärde.",
+        description: "Tydliga KPI:er från dag ett. Vi mäter ROI, itererar och förbättrar kontinuerligt era AI-system för att säkerställa långsiktigt affärsvärde.",
+        phase: PHASE_STEP * 4,
     },
 ];
 
@@ -51,9 +53,10 @@ interface GridItemProps {
     icon: React.ReactNode;
     title: string;
     description: string;
+    phase: number;
 }
 
-const GridItem = ({ area, icon, title, description }: GridItemProps) => (
+const GridItem = ({ area, icon, title, description, phase }: GridItemProps) => (
     <li className={cn("min-h-[14rem] list-none", area)}>
         <div className="relative h-full rounded-[1.25rem] border-[0.75px] border-white/10 p-2 md:rounded-[1.5rem] md:p-3">
             <GlowingEffect
@@ -63,6 +66,9 @@ const GridItem = ({ area, icon, title, description }: GridItemProps) => (
                 proximity={64}
                 inactiveZone={0.01}
                 borderWidth={3}
+                autoAnimate={true}
+                phaseOffset={phase}
+                animSpeed={0.18}
             />
             <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border-[0.75px] border-white/10 bg-white/5 p-6 shadow-sm backdrop-blur-sm md:p-6">
                 <div className="relative flex flex-1 flex-col justify-between gap-3">
