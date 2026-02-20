@@ -64,8 +64,6 @@ const SyntheticHero = ({
     const [highlightsActive, setHighlightsActive] = useState(false);
     const [ctaVisible, setCtaVisible] = useState(false);
 
-    // Trigger highlights a beat after the description text lands.
-    // Fire CTA + badge after all highlights finish: 300ms + 2200ms delay + 2200ms duration = 4700ms
     React.useEffect(() => {
         if (!descriptionFinished) return;
         const tHighlight = setTimeout(() => setHighlightsActive(true), 300);
@@ -81,9 +79,6 @@ const SyntheticHero = ({
 
     useGSAP(
         () => {
-
-
-
             const microItems = microRef.current
                 ? Array.from(microRef.current.querySelectorAll("li"))
                 : [];
@@ -93,10 +88,6 @@ const SyntheticHero = ({
 
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-
-
-
-
             if (microItems.length > 0) {
                 tl.to(
                     microItems,
@@ -104,8 +95,6 @@ const SyntheticHero = ({
                     "-=0.25",
                 );
             }
-
-
         },
         { scope: sectionRef },
     );
@@ -216,9 +205,9 @@ const SyntheticHero = ({
                                     animationDuration={2200}
                                     delay={2200}
                                 >
-                                    skr\u00e4ddarsydda AI-system
+                                    skräddarsydda AI-system
                                 </Highlighter>
-                                {' '}f\u00f6r era behov och utbildar era team.
+                                {' '}för era behov och utbildar era team.
                             </div>
                         )
                     )}
