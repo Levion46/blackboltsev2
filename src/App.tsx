@@ -2,7 +2,7 @@ import SyntheticHero from "@/components/ui/synthetic-hero"
 import { Navbar } from "@/components/ui/navbar"
 import WhoWeAre from "@/components/ui/who-we-are"
 import LogosSection from "@/components/ui/logos-section"
-import CardSection from "@/components/ui/card-section"
+// import CardSection from "@/components/ui/card-section" // temporarily removed
 import ProcessFeatures from "@/components/ui/features-8"
 import FooterSection from "@/components/ui/footer"
 import ServicesSection from "@/components/ui/services-section"
@@ -38,7 +38,6 @@ function App() {
             <WhoWeAre />
             <ServicesSection />
             <ProcessFeatures />
-            <CardSection />
             <FooterSection />
         </div>
     )
