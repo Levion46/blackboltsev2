@@ -185,7 +185,7 @@ const SyntheticHero = ({
                     />
                 )}
 
-                <div className="hidden min-h-[40px] sm:min-h-[60px] mb-6 sm:mb-10">
+                <div className="min-h-[40px] sm:min-h-[60px] mb-6 sm:mb-10">
                     {headerFinished && (
                         !descriptionFinished ? (
                             <BlurText
@@ -216,9 +216,9 @@ const SyntheticHero = ({
                                     animationDuration={2200}
                                     delay={2200}
                                 >
-                                    skräddarsydda AI-system
+                                    skr\u00e4ddarsydda AI-system
                                 </Highlighter>
-                                {' '}för era behov och utbildar era team.
+                                {' '}f\u00f6r era behov och utbildar era team.
                             </div>
                         )
                     )}
