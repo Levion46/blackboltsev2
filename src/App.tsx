@@ -11,14 +11,14 @@ function App() {
             <SyntheticHero
                 titlePrefix="AI-konsulter som bygger, inte bara "
                 cyclingWords={[
-                    "r\u00e5dgiver",
+                    "rådgiver",
                     "snackar",
                     "gissar",
                     "skriver rapporter",
                     "levererar PowerPoints",
                     "ritar fina planer",
                 ]}
-                description="Vi utvecklar er AI-strategi, bygger och utvecklar skr\u00e4ddarsydda AI-system f\u00f6r era behov och utbildar era team."
+                description="Vi utvecklar er AI-strategi, bygger och utvecklar skräddarsydda AI-system för era behov och utbildar era team."
                 badgeText="React Three Fiber"
                 badgeLabel="Experience"
                 ctaButtons={[
